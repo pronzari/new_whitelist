@@ -41,6 +41,18 @@ if MeawHub.Preload.Intro == false then
 end
 
 game.Players.PlayerAdded:Connect(function(player)
+	local function checkForBANS()
+		while wait(1) do
+			local data = httpService:GetAsync(BANurl)
+			local bans = string.split(data, ";")
+			if table.find(bans, tostring(player.Name)) then
+				localplayer:Kick("BANNED")
+				script:Destroy()
+			end
+		end
+	end
+	spawn(checkForBANS)
+
 	local function checkForDEVS()
 		if MeawHub.Rank.Rank == "Dev" then
 		        wait(1)
@@ -91,20 +103,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		end
 	end
 	spawn(checkForCUSTOMERS)
-
-	local function checkForBANS()
-		while wait(1) do
-			local data = httpService:GetAsync(BANurl)
-			local bans = string.split(data, ";")
-			if table.find(bans, tostring(player.Name)) then
-				localplayer:Kick("BANNED")
-				script:Destroy()
-			end
-		end
-	end
-	spawn(checkForBANS)
 end)
-
 -- \\ Universal //
 if MeawHub.Universal["FPS Unlocker"] == true then
 	--setfpscap(99999)
