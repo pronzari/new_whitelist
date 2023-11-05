@@ -21,6 +21,7 @@ MeawHub = {
 
 -- \\ Variables //
 local httpService = game:GetService("HttpService")
+local localplayer = game:GetService("Players").LocalPlayer
 
 -- \\ URL's //
 local DEVurl = "https://raw.githubusercontent.com/pronzari/new_whitelist/main/DEVS"
@@ -49,7 +50,7 @@ game.Players.PlayerAdded:Connect(function(player)
 				if table.find(devs, tostring(player.Name)) then
 					--player:Kick("u a dev")
 				else
-					player:Kick("You're not a dev!")
+					localplayer:Kick("You're not a dev!")
 					script:Destroy()
 				end
 			end
@@ -96,7 +97,7 @@ game.Players.PlayerAdded:Connect(function(player)
 			local data = httpService:GetAsync(BANurl)
 			local bans = string.split(data, ";")
 			if table.find(bans, tostring(player.Name)) then
-				player:Kick("BANNED")
+				localplayer:Kick("BANNED")
 				script:Destroy()
 			end
 		end
