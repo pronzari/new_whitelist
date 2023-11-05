@@ -42,7 +42,7 @@ end
 
 game.Players.PlayerAdded:Connect(function(player)
 	local function checkForDEVS()
-		wait(.001)
+		wait(1)
 		if MeawHub.Rank.Rank == "Dev" then
 			while wait(1) do
 				local data = httpService:GetAsync(DEVurl)
@@ -59,7 +59,7 @@ game.Players.PlayerAdded:Connect(function(player)
 	spawn(checkForDEVS)
 
 	local function checkForTESTERS()
-		wait(.001)
+		wait(1)
 		if MeawHub.Rank.Rank == "Tester" then
 			while wait(1) do
 				local data = httpService:GetAsync(TESTERurl)
@@ -76,7 +76,7 @@ game.Players.PlayerAdded:Connect(function(player)
 	spawn(checkForTESTERS)
 
 	local function checkForCUSTOMERS()
-		wait(.001)
+		wait(1)
 		if MeawHub.Rank.Rank == "Customer" then
 			while wait(1) do
 				local data = httpService:GetAsync(CUSTOMERurl)
