@@ -1,0 +1,113 @@
+MeawHub = {
+	Rank = {
+		['Rank'] = 'Dev',
+	},
+	Preload = {
+		['Intro'] = false,
+		['Intro Music'] = true,
+	},
+	Universal = {
+		['FPS Unlocker'] = true,
+		['No Parry Delay'] = true, 
+		['Ping Based'] = true,
+		['AntiBan'] = true,
+	},
+	AutoParry = {
+		['Auto Parry'] = true,
+		['Close Range'] = true,
+		['Keybind'] = "C",
+	}
+}
+
+-- \\ Variables //
+local httpService = game:GetService("HttpService")
+
+-- \\ URL's //
+local DEVurl = "https://raw.githubusercontent.com/pronzari/new_whitelist/main/DEVS"
+local TESTERurl = "https://pastebin.com/raw/be9YZDXg"
+local CUSTOMERurl = "https://pastebin.com/raw/wVWBpvJX"
+local BANurl = "https://raw.githubusercontent.com/pronzari/new_whitelist/main/BANS"
+
+-- \\ Preload //
+if MeawHub.Preload.Intro == true then
+	print("intro loaded")
+end
+if MeawHub.Preload["Intro Music"] and MeawHub.Preload.Intro == true then
+	print("music and intro playing")
+end
+if MeawHub.Preload.Intro == false then
+	print("intro skipped")
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+	local function checkForDEVS()
+		wait(.001)
+		if MeawHub.Rank.Rank == "Dev" then
+			while wait(1) do
+				local data = httpService:GetAsync(DEVurl)
+				local devs = string.split(data, ";")
+				if table.find(devs, tostring(player.Name)) then
+					--player:Kick("u a dev")
+				else
+					player:Kick("You're not a dev!")
+					script:Destroy()
+				end
+			end
+		end
+	end
+	spawn(checkForDEVS)
+
+	local function checkForTESTERS()
+		wait(.001)
+		if MeawHub.Rank.Rank == "Tester" then
+			while wait(1) do
+				local data = httpService:GetAsync(TESTERurl)
+				local testers = string.split(data, ";")
+				if table.find(testers, tostring(player.Name)) then
+					player:Kick("u a tester yay??")
+				else
+					player:Kick("You're not a tester!")
+					script:Destroy()
+				end
+			end
+		end
+	end
+	spawn(checkForTESTERS)
+
+	local function checkForCUSTOMERS()
+		wait(.001)
+		if MeawHub.Rank.Rank == "Customer" then
+			while wait(1) do
+				local data = httpService:GetAsync(CUSTOMERurl)
+				local customers = string.split(data, ";")
+				if table.find(customers, tostring(player.Name)) then
+					player:Kick("u a customer!!")
+				else
+					player:Kick("You're not whitelisted!")
+					script:Destroy()
+				end
+			end
+		end
+	end
+	spawn(checkForCUSTOMERS)
+
+	local function checkForBANS()
+		while wait(1) do
+			local data = httpService:GetAsync(BANurl)
+			local bans = string.split(data, ";")
+			if table.find(bans, tostring(player.Name)) then
+				player:Kick("BANNED")
+				script:Destroy()
+			end
+		end
+	end
+	spawn(checkForBANS)
+end)
+
+-- \\ Universal //
+if MeawHub.Universal["FPS Unlocker"] == true then
+	--setfpscap(99999)
+end
+if MeawHub.Universal["Ping Based"] == true then
+	
+end
